@@ -163,23 +163,21 @@ Extracts an immediate 3-hop local subgraph surrounding any flagged transaction o
 • Federated Multi-Bank Anomaly Graphs: Incorporating privacy-preserving Graph Neural Networks (GNNs) across distinct financial institutions.
 • Autonomous Synthetic Identity Simulation: Simulating adversarial behavior inside the graph to uncover latent vulnerabilities.`,
 
-      benchmarksText: `TRACEGUARD AI BENCHMARK REPORT
-Total Test Cases Evaluated: 20 Cases
-Successful Graph Traversals: 20 / 20 (100%)
-Synthetic Fraud Typologies Tested: Account Takeover (ATO), Mule Rings, Structuring
-Target Entity: Sarah Jenkins (CUST-10452) | CASE-2026-001
-Risk Assessment Accuracy: 100% Alignment with Expected Risk Tiers
-Average Graph Traversal Latency: 14ms (TigerGraph Cloud RESTPP)
-Average Agent Triage Pipeline: 1.84s (LangGraph 8-Node Full Cycle)
-Human Analyst Review Acceleration: ~96% Reduction in Mean-Time-To-Investigate
+      benchmarkMetrics: [
+        { label: "Total Test Cases Evaluated", value: "20 Cases" },
+        { label: "Successful Graph Traversals", value: "20 / 20 (100%)" },
+        { label: "Synthetic Fraud Typologies Tested", value: "Account Takeover (ATO), Mule Rings, Structuring" },
+        { label: "Target Entity", value: "Sarah Jenkins (CUST-10452) | CASE-2026-001" },
+        { label: "Risk Assessment Accuracy", value: "100% Alignment with Expected Risk Tiers" },
+        { label: "Average Graph Traversal Latency", value: "14ms (TigerGraph Cloud RESTPP)" },
+        { label: "Average Agent Triage Pipeline", value: "1.84s (LangGraph 8-Node Full Cycle)" },
+        { label: "Human Analyst Review Acceleration", value: "~96% Reduction in Mean-Time-To-Investigate" }
+      ],
 
-Live Demonstration Walkthrough: CASE-2026-001
+      demoWalkthrough: `Live Demonstration Walkthrough: CASE-2026-001
 1. Trigger: Customer Sarah Jenkins (CUST-10452) initiates a $4,850.00 outflow to CryptoVantage Exchange.
-2. Autonomous Traversal: Originating hardware OnePlus 11 (unrecognized device), IP 185.213.154.12 (Frankfurt VPN exit point), cross-account linkage across 3 unrelated bank accounts.
-3. Synthesis & Mitigation: Threat Score 91/100 | Confidence 94% | Vector: Account Takeover (ATO). Policy escalation triggered and approved in one click via Cyber Command Center UI.
-
-• GitHub Repository: https://github.com/Amar1912/TraceGuardAI.git
-• Architecture Stack: Next.js 15, FastAPI, LangGraph, TigerGraph Cloud, GraphRAG, Tailwind CSS.`,
+2. Autonomous Traversal: Originating hardware OnePlus 11 (unrecognized device, never before seen in 3-year history), IP 185.213.154.12 (flagged commercial datacenter VPN exit point in Frankfurt, Germany), and cross-account linkage across 3 unrelated bank accounts using the same hardware hash within 15 minutes.
+3. Synthesis & Mitigation: Threat Score 91/100 | Confidence 94% | Vector: Account Takeover (ATO). Autonomous freeze policy escalation triggered; the analyst approved the mitigation in one click via the Cyber Command Center UI, freezing outbound routing and logging an immutable audit record.`,
 
       conclusion: `The arms race between financial institutions and organized fraud networks has reached a tipping point. TraceGuard AI demonstrates what the next generation of financial defense looks like: an architecture where TigerGraph's ultra-fast multi-hop traversals provide the structural truth, GraphRAG supplies regulatory context, and LangGraph's stateful orchestration executes auditable, reliable investigations. By unifying autonomous intelligence with human governance, financial systems can detect coordinated fraud networks in milliseconds—stopping illicit fund flows before they leave the ledger.`
     }

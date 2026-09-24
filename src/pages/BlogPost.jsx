@@ -240,8 +240,45 @@ export default function BlogPost() {
             {/* Benchmarks & Demonstration */}
             <section id="benchmarks">
               <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Benchmarks & Demonstration</h2>
-              <div className="bg-[#18181B] text-[#38BDF8] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6 border border-[#27272A] whitespace-pre-line leading-relaxed">
-                {content.benchmarksText}
+
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-[#18181B] mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#EC4899]"></span>
+                  TraceGuard AI Benchmark Report
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {content.benchmarkMetrics.map((metric, idx) => (
+                    <div key={idx} className="bg-[#F4F4F5]/60 border border-[#E4E4E7] p-4 rounded-lg">
+                      <div className="text-xs font-semibold text-[#71717A] uppercase tracking-wider mb-1">
+                        {metric.label}
+                      </div>
+                      <div className="text-sm font-medium text-[#18181B]">
+                        {metric.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-[#F4F4F5]/60 border border-[#E4E4E7] p-6 rounded-lg mb-6">
+                <h3 className="text-lg font-semibold text-[#18181B] mb-3">
+                  Live Demonstration Walkthrough: CASE-2026-001
+                </h3>
+                <p className="text-[#18181B]/90 whitespace-pre-line leading-relaxed text-base">
+                  {content.demoWalkthrough}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#71717A] pt-4 border-t border-[#E4E4E7]">
+                <a
+                  href="https://github.com/Amar1912/TraceGuardAI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#EC4899] transition-colors"
+                >
+                  • GitHub Repository: https://github.com/Amar1912/TraceGuardAI.git
+                </a>
+                <span>• Architecture Stack: Next.js 15, FastAPI, LangGraph, TigerGraph Cloud, GraphRAG, Tailwind CSS</span>
               </div>
             </section>
 
