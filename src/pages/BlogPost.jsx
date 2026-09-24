@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getBlogPostBySlug } from '../data/blogPosts';
 import TableOfContents from '../components/TableOfContents';
-import { ArrowLeft, Clock, Calendar, User, Shield } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, User, Shield, Terminal } from 'lucide-react';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -23,10 +23,11 @@ export default function BlogPost() {
         'problem',
         'architecture',
         'implementation',
-        'technology-choices',
-        'challenges',
-        'results-observations',
-        'future-improvements',
+        'tigergraph',
+        'agentic',
+        'learnings',
+        'future',
+        'benchmarks',
         'conclusion',
       ];
 
@@ -123,69 +124,127 @@ export default function BlogPost() {
           <hr className="border-[#E4E4E7] mb-12" />
 
           {/* Article Body Sections */}
-          <div className="space-y-10 text-[#18181B] text-[17px] md:text-[18px] leading-[1.75]">
+          <div className="space-y-12 text-[#18181B] text-[17px] md:text-[18px] leading-[1.75]">
+
+            {/* What is TraceGuard AI */}
             <section id="introduction">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Introduction</h2>
-              <p className="text-[#18181B]/90">{content.introduction}</p>
-            </section>
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">What Is TraceGuard AI</h2>
+              <p className="text-[#18181B]/90 mb-6">{content.introduction}</p>
 
-            <section id="problem">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Problem</h2>
-              <p className="text-[#18181B]/90">{content.problem}</p>
-            </section>
-
-            <section id="architecture">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Architecture</h2>
-              <p className="text-[#18181B]/90 mb-6">{content.architecture}</p>
-
-              {/* Technical Code Block Example */}
-              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6">
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
-                  <span>gsql/fraud_traversal.gsql</span>
-                  <span>TigerGraph</span>
+              {/* ASCII Flow Diagram */}
+              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-4 md:p-6 font-mono text-xs overflow-x-auto shadow-sm my-6 border border-[#27272A]">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
+                  <Terminal className="w-4 h-4 text-[#EC4899]" />
+                  <span>TraceGuard AI Autonomous Pipeline Topology</span>
                 </div>
-                <pre className="text-[#F472B6]">
-                  {`CREATE QUERY DetectFraudRing(VERTEX<Account> seed, INT maxHops) SYNTAX V1 {
-  /* Autonomous multi-hop traversal query */
-  Start = {seed};
-  ResultSet = SELECT tgt FROM Start:s -(TRANSACTION:e)- Account:tgt
-                WHERE e.amount > 5000
-                ACCUM @@visitedEdges += e;
-  PRINT ResultSet;
-}`}
+                <pre className="text-[#F472B6] leading-relaxed">
+                  {content.asciiFlow}
                 </pre>
               </div>
             </section>
 
+            {/* Purpose & Problem */}
+            <section id="problem">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Purpose of TraceGuard AI & The Problem</h2>
+              <p className="text-[#18181B]/90 mb-4">{content.problemText}</p>
+              <div className="whitespace-pre-line text-[#18181B]/90 bg-[#F4F4F5]/60 p-6 rounded-lg border border-[#E4E4E7]">
+                {content.purposeText}
+              </div>
+            </section>
+
+            {/* System Architecture */}
+            <section id="architecture">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">System Architecture</h2>
+              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-4 md:p-6 font-mono text-xs overflow-x-auto shadow-sm my-6 border border-[#27272A]">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
+                  <Terminal className="w-4 h-4 text-[#EC4899]" />
+                  <span>Microservice Architecture Schematic</span>
+                </div>
+                <pre className="text-[#38BDF8] leading-relaxed">
+                  {content.architectureText}
+                </pre>
+              </div>
+              <div className="whitespace-pre-line text-[#18181B]/90 mt-6">
+                {content.architectureBullets}
+              </div>
+            </section>
+
+            {/* What We Built */}
             <section id="implementation">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Implementation</h2>
-              <p className="text-[#18181B]/90">{content.implementation}</p>
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">What We Built</h2>
+              <div className="whitespace-pre-line text-[#18181B]/90">
+                {content.whatWeBuilt}
+              </div>
             </section>
 
-            <section id="technology-choices">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Technology choices</h2>
-              <p className="text-[#18181B]/90">{content.technologyChoices}</p>
+            {/* How TigerGraph Is Used */}
+            <section id="tigergraph">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">How TigerGraph Is Used</h2>
+              <p className="text-[#18181B]/90 mb-6">{content.tigergraphUsage}</p>
+
+              {/* GSQL Code 1 */}
+              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6">
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
+                  <span>gsql/findSharedDevices.gsql</span>
+                  <span>TigerGraph Cloud</span>
+                </div>
+                <pre className="text-[#F472B6]">
+                  {content.gsqlCode1}
+                </pre>
+              </div>
+
+              <p className="text-[#18181B]/90 my-4">{content.gsqlCode2Desc}</p>
+
+              {/* GSQL Code 2 */}
+              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6">
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
+                  <span>gsql/getCaseNetwork.gsql</span>
+                  <span>TigerGraph Cloud</span>
+                </div>
+                <pre className="text-[#F472B6]">
+                  {content.gsqlCode2}
+                </pre>
+              </div>
             </section>
 
-            <section id="challenges">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Challenges</h2>
-              <p className="text-[#18181B]/90">{content.challenges}</p>
+            {/* Agentic Capabilities */}
+            <section id="agentic">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">The Agentic Capabilities Implemented</h2>
+              <div className="whitespace-pre-line text-[#18181B]/90">
+                {content.agenticCapabilities}
+              </div>
             </section>
 
-            <section id="results-observations">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Results / Observations</h2>
-              <p className="text-[#18181B]/90">{content.resultsObservations}</p>
+            {/* What We Learned */}
+            <section id="learnings">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">What We Learned</h2>
+              <div className="whitespace-pre-line text-[#18181B]/90">
+                {content.whatWeLearned}
+              </div>
             </section>
 
-            <section id="future-improvements">
-              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Future Improvements</h2>
-              <p className="text-[#18181B]/90">{content.futureImprovements}</p>
+            {/* Future Improvements */}
+            <section id="future">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">What Will Be Improved Over Time</h2>
+              <div className="whitespace-pre-line text-[#18181B]/90">
+                {content.futureImprovements}
+              </div>
             </section>
 
+            {/* Benchmarks & Demonstration */}
+            <section id="benchmarks">
+              <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Benchmarks & Demonstration</h2>
+              <div className="bg-[#18181B] text-[#38BDF8] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6 border border-[#27272A] whitespace-pre-line leading-relaxed">
+                {content.benchmarksText}
+              </div>
+            </section>
+
+            {/* Conclusion */}
             <section id="conclusion">
               <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">Conclusion</h2>
               <p className="text-[#18181B]/90">{content.conclusion}</p>
             </section>
+
           </div>
         </article>
 

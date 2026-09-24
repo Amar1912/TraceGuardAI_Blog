@@ -1,14 +1,15 @@
 import React from 'react';
 
 const sections = [
-  { id: 'introduction', label: 'Introduction' },
-  { id: 'problem', label: 'Problem' },
-  { id: 'architecture', label: 'Architecture' },
-  { id: 'implementation', label: 'Implementation' },
-  { id: 'technology-choices', label: 'Technology choices' },
-  { id: 'challenges', label: 'Challenges' },
-  { id: 'results-observations', label: 'Results / Observations' },
-  { id: 'future-improvements', label: 'Future Improvements' },
+  { id: 'introduction', label: 'What Is TraceGuard AI' },
+  { id: 'problem', label: 'Purpose & Problem' },
+  { id: 'architecture', label: 'System Architecture' },
+  { id: 'implementation', label: 'What We Built' },
+  { id: 'tigergraph', label: 'How TigerGraph Is Used' },
+  { id: 'agentic', label: 'Agentic Capabilities' },
+  { id: 'learnings', label: 'What We Learned' },
+  { id: 'future', label: 'Future Improvements' },
+  { id: 'benchmarks', label: 'Benchmarks & Demo' },
   { id: 'conclusion', label: 'Conclusion' },
 ];
 
@@ -16,7 +17,7 @@ export default function TableOfContents({ activeSection }) {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // header height + padding
+      const offset = 80;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;

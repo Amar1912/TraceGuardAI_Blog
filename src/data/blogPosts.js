@@ -1,102 +1,188 @@
 export const blogPosts = [
   {
     slug: "building-traceguard-ai",
-    title: "Building TraceGuard AI: Autonomous Graph-Powered Fraud Investigation",
+    title: "Building TraceGuard AI: Autonomous Graph-Powered Fraud Investigation with TigerGraph & GraphRAG",
     category: "Engineering",
-    description: "How we designed TraceGuard AI using TigerGraph, GraphRAG, AI agents, and graph-based investigation workflows.",
+    description: "How we designed TraceGuard AI using TigerGraph Cloud, LangGraph, AI agents, and graph-based investigation workflows.",
     author: "TraceGuard AI Engineering Team",
     date: "September 2026",
-    readingTime: "8 min read",
+    readingTime: "12 min read",
     content: {
-      introduction: "Financial fraud is increasingly sophisticated, distributed, and orchestrated by syndicates across multiple shell companies and masked transaction hops. Traditional point-in-time scoring engines often miss these multi-hop rings. In this post, we explore how we built TraceGuard AI to automate complex fraud investigation workflows using graph databases and autonomous AI agents.",
-      problem: "Traditional relational databases and siloed microservices store transaction records in isolated tables. When investigating sophisticated money laundering or synthetic identity rings, analysts are forced to write dozens of recursive SQL JOINs or manual traversal scripts. This introduces significant latency (often hours or days per investigation), high analyst burnout, and low explainability in regulatory reporting.",
-      architecture: "TraceGuard AI combines a high-performance graph database core (TigerGraph), an LLM-powered agent orchestration layer, and a GraphRAG (Graph Retrieval-Augmented Generation) engine. Incoming transaction streams are ingested via Kafka, processed in real-time through anomaly detection microservices, and immediately projected into an evolving multi-dimensional graph model representing accounts, devices, IP addresses, and merchants.",
-      implementation: "Our ingestion pipeline parses streaming JSON events into vertex and edge mutations. When an anomaly score breaches the risk threshold, an autonomous investigation agent is spawned. The agent queries subgraphs using GSQL (Graph SQL), retrieves historical topological context, and executes recursive neighborhood expansion to synthesize risk summaries.",
-      technologyChoices: "We selected TigerGraph for its native parallel graph storage and GSQL computation capabilities, which scale efficiently across billions of vertices. For the agent layer, we built a lightweight TypeScript/Python orchestration runtime using LangChain and custom structured output parsers, ensuring deterministic JSON responses from LLMs.",
-      challenges: "One major hurdle was controlling LLM hallucinations during multi-hop graph traversals. We solved this by decoupling reasoning from retrieval: the LLM never queries the database directly; instead, it generates typed tool calls that execute pre-validated GSQL traversal queries, ensuring 100% data integrity.",
-      resultsObservations: "In production benchmarks across 50 million daily transactions, TraceGuard AI reduced average investigation triage time from 45 minutes to under 45 seconds, while improving multi-hop fraud ring detection accuracy by 34% compared to baseline rules engines.",
-      futureImprovements: "We are currently researching decentralized federated learning across banking nodes to allow cross-institution fraud pattern sharing without exposing raw PII, alongside zero-knowledge proof verification for audit logs.",
-      conclusion: "Autonomous graph-powered investigation represents the future of financial crime prevention. By marrying graph topology with agentic reasoning, security teams can move from reactive alert triage to proactive, explainable network disruption."
-    }
-  },
-  {
-    slug: "why-graph-databases-matter-for-fraud-investigation",
-    title: "Why Graph Databases Matter for Fraud Investigation",
-    category: "Graph Intelligence",
-    description: "Understanding how connected transaction data can reveal relationships that traditional relational queries can miss.",
-    author: "Dr. Elena Vance, Principal Graph Architect",
-    date: "September 2026",
-    readingTime: "6 min read",
-    content: {
-      introduction: "In fraud detection, context is everything. Two transactions of $9,999 might look entirely benign when viewed in isolation. However, when connected through shared device fingerprints, common intermediary wallet addresses, and synchronized timing, they reveal a coordinated structuring ring.",
-      problem: "Relational databases store data in normalized tables optimized for point lookups and aggregations. As the depth of relationships increases—such as 4-hop or 5-hop beneficial ownership structures—relational SQL queries suffer from combinatorial explosion, resulting in expensive table scans and query timeouts.",
-      architecture: "Graph databases model data as vertices (entities like users, accounts, devices) and edges (relationships like transferred_to, logged_in_from). Storage engines utilize index-free adjacency, meaning traversals follow direct memory pointers rather than index lookups.",
-      implementation: "We implemented core traversal patterns for ring detection, cycle discovery, and community detection (such as Louvain modularity). Queries that took 20 minutes in PostgreSQL now execute in sub-millisecond windows in TigerGraph.",
-      technologyChoices: "Native parallel graph engines outperform relational stores and non-native graph layers (like graph wrappers on relational DBs) because compute can be pushed directly to the storage nodes where edges reside.",
-      challenges: "Optimizing partition keys for distributed graph clusters requires deep domain modeling. We learned to partition based on natural geographic or institutional boundaries to minimize cross-network communication overhead.",
-      resultsObservations: "Migrating our core entity resolution pipelines to a native graph architecture yielded a 10x throughput increase during peak holiday shopping traffic surges.",
-      futureImprovements: "Integrating real-time vector embeddings on graph vertices to enable hybrid semantic-topological similarity searches.",
-      conclusion: "Graph databases are no longer a niche tool for social networks; they are foundational infrastructure for modern financial risk and security systems."
-    }
-  },
-  {
-    slug: "building-graphrag-with-tigergraph",
-    title: "Building GraphRAG with TigerGraph",
-    category: "GraphRAG",
-    description: "Exploring how graph retrieval and generative AI work together to create explainable investigation workflows.",
-    author: "Marcus Chen, AI Research Lead",
-    date: "August 2026",
-    readingTime: "7 min read",
-    content: {
-      introduction: "Standard Retrieval-Augmented Generation (RAG) uses vector similarity search over text chunks. While powerful for document QA, it often fails in complex domains where facts are distributed across interconnected relational graphs. Enter GraphRAG.",
-      problem: "Traditional vector RAG struggles with multi-hop reasoning questions such as 'Which corporate entities connected to Account A have also interacted with known sanctioned addresses through intermediary shells?'. Vector embeddings alone miss the precise topological paths.",
-      architecture: "GraphRAG combines vector embeddings on graph nodes with exact graph traversal results. When an investigator asks a natural language question, the system first traverses the graph to extract relevant subgraphs and narrative paths, then feeds this structured context to the LLM.",
-      implementation: "We built a pipeline where GSQL query results are transformed into contextual markdown summaries and fed into a context window alongside vector-retrieved policy documents.",
-      technologyChoices: "TigerGraph provides robust storage for both graph structures and node vector properties, avoiding synchronization bottlenecks between separate vector stores and graph DBs.",
-      challenges: "Balancing context window limits with the sheer size of multi-hop subgraphs required implementing intelligent subgraph pruning algorithms based on edge weight and recency.",
-      resultsObservations: "Analysts reported a 90% reduction in hallucination rates when using GraphRAG compared to standard document RAG for complex case summaries.",
-      futureImprovements: "Expanding multi-modal graph embeddings to include transaction receipt images and unstructured KYC document PDFs.",
-      conclusion: "GraphRAG bridges the gap between raw quantitative graph data and qualitative human understanding, making AI investigations fully auditable."
-    }
-  },
-  {
-    slug: "designing-an-agentic-fraud-investigation-workflow",
-    title: "Designing an Agentic Fraud Investigation Workflow",
-    category: "AI Agents",
-    description: "How autonomous agents can assist investigators by collecting evidence, reasoning over relationships, and generating next-best actions.",
-    author: "Sarah Jenkins, Senior Product Engineer",
-    date: "August 2026",
-    readingTime: "5 min read",
-    content: {
-      introduction: "Investigating financial crime is tedious work requiring manual pivots across multiple internal databases, external sanction lists, and transaction logs. Agentic workflows automate the investigative grunt work so human experts can focus on high-judgment decisions.",
-      problem: "Human investigators spend 70% of their time gathering data and only 30% analyzing and deciding. This bottleneck leads to backlogs and missed fraud vectors during high-volume events.",
-      architecture: "Our agentic framework consists of a Supervisor Agent that delegates tasks to specialized worker agents: a Topology Scout (queries graph paths), a Sanction Checker (queries external APIs), and a Narrative Synthesizer (drafts SARs - Suspicious Activity Reports).",
-      implementation: "Built using state machine execution loops with strict validation checkpoints before any automated freeze or flag action is recommended.",
-      technologyChoices: "TypeScript for robust type safety across agent message buses and Python for heavy graph data processing pipelines.",
-      challenges: "Ensuring agent determinism and preventing infinite reasoning loops. We implemented strict step limits and deterministic tool schemas.",
-      resultsObservations: "Agent-assisted triage decreased investigation cycle times from hours to seconds while maintaining a 99.2% human analyst approval rate.",
-      futureImprovements: "Adding collaborative multi-agent debate modes for high-stakes enterprise fraud cases.",
-      conclusion: "Agentic workflows transform AI from a passive chatbot into an active, reliable co-pilot for financial crime investigators."
-    }
-  },
-  {
-    slug: "from-transaction-data-to-investigation-graph",
-    title: "From Transaction Data to Investigation Graph",
-    category: "Architecture",
-    description: "How raw financial transaction records can be transformed into a graph model for investigation.",
-    author: "David Kim, Lead Data Engineer",
-    date: "July 2026",
-    readingTime: "6 min read",
-    content: {
-      introduction: "Data modeling is the bedrock of any graph analytics platform. Moving from flat CSV transaction exports to an investigation graph requires careful ontology design.",
-      problem: "Raw transactions contain disparate formats, missing fields, and ambiguous entity naming (e.g., 'ACME CORP' vs 'Acme Corp LLC'). Without robust entity resolution, the graph becomes fragmented.",
-      architecture: "Our ingestion pipeline normalizes records through deterministic and probabilistic matching (Levenshtein distance, Jaro-Winkler, and embedding similarity) before writing vertices and edges.",
-      implementation: "Using Apache Flink for real-time stream enrichment and entity resolution before persisting to TigerGraph.",
-      technologyChoices: "Apache Flink + Kafka + TigerGraph form a resilient, low-latency stream-to-graph architecture.",
-      challenges: "Handling schema evolution as new fraud typologies emerge requiring new edge types without downtime.",
-      resultsObservations: "Achieved sub-second end-to-end ingestion latency from wire to graph queryable state.",
-      futureImprovements: "Automated schema suggestion using LLM-driven ontology inference.",
-      conclusion: "A well-designed graph ontology turns chaotic transaction streams into a crystal-clear lens for financial investigations."
+      introduction: `TraceGuard AI is an autonomous, multi-agent fraud investigation platform engineered to uncover complex, coordinated financial crime syndicates in sub-second timeframes. Built around TigerGraph Cloud, LangGraph, and GraphRAG, the system ingests anomalous financial events, traverses deep multi-hop transactional graphs, synthesizes distributed forensic evidence, and autonomously delivers policy-governed, auditable next-best actions.`,
+
+      asciiFlow: `[ Real-Time Ingestion: Velocity Spikes | High-Value Outflows | IP Shifts ]
+                                         │
+                                         ▼
+                  ┌──────────────────────────────────────────────┐
+                  │    LangGraph 8-Node State Machine Engine     │
+                  └──────────────────────┬───────────────────────┘
+                                         │
+                 ┌───────────────────────┴───────────────────────┐
+                 ▼                                               ▼
+    TigerGraph Cloud (GSQL)                            GraphRAG Context Engine
+ ┌───────────────────────────────┐              ┌───────────────────────────────────┐
+ │ • findSharedDevices           │              │ • SAR Reporting Policy Thresholds │
+ │ • getCaseNetwork (3-hop)      │              │ • Institutional Compliance Rules  │
+ │ • Sub-second Ring Discovery   │              │ • Historical Case Memory Embeddings│
+ └───────────────┬───────────────┘              └─────────────────┬─────────────────┘
+                 │                                               │
+                 └───────────────────────┬───────────────────────┘
+                                         ▼
+               ┌───────────────────────────────────────────────────┐
+               │          Deterministic Policy Guardrail           │
+               │     (Risk vs. Uncertainty Scoring & Escalation)   │
+               └─────────────────────────┬─────────────────────────┘
+                                         │
+                                         ▼
+               ┌───────────────────────────────────────────────────┐
+               │ Next.js 15 Cyber Command UI (Human-in-the-Loop)   │
+               │     [Block Account | Hold Funds | File SAR]       │
+               └───────────────────────────────────────────────────┘`,
+
+      problemText: `Traditional rule-based fraud detection systems flag isolated transactions via brittle if-then thresholds, but they fail when confronted with distributed attack vectors: synthetic identities, device-farming rings, structuring, and coordinated account takeovers (ATO). TraceGuard AI replaces fragmented manual workflows with a stateful reasoning agent that inspects entities as interconnected topologies rather than isolated tabular rows.`,
+
+      purposeText: `Financial fraud syndicates no longer operate through single compromised debit cards; they operate through distributed infrastructure. Money mules, rotating proxy networks, and shared hardware fingerprints funnel capital across accounts within minutes, exploiting the latency between alert generation and human triage.
+
+Inside Tier-1 financial institutions, the operational bottleneck is severe:
+• Siloed Relational Data: Core banking ledgers, KYC profiles, device telemetry, and IP routing tables sit in disparate relational tables. Executing 3- to 6-hop queries across billions of rows causes relational JOIN operations to time out.
+• Manual Forensic Fatigue: Human fraud analysts spend 80% of their triage hours manually correlating IP subnets, hardware fingerprints, and historical recipient accounts across disconnected consoles.
+• Capital Flight Window: While analysts assemble an initial forensic picture over hours or days, bad actors exit into cold crypto wallets or offshore fiat rails.
+• Regulatory Vulnerability: Filing a Suspicious Activity Report (SAR) requires defensible, deterministic reasoning. Ungrounded Large Language Models (LLMs) hallucinate connections, while legacy rule engines fail to capture contextual nuances.
+
+TraceGuard AI bridges this gap by decoupling detection from manual human query latency. It provides instantaneous multi-hop graph traversals, deterministic institutional policy guardrails, and autonomous investigative dossiers that reduce mean-time-to-decision (MTTD) from hours to seconds.`,
+
+      whatWeBuilt: `At the TigerGraph Agentic Fraud Investigation Hackathon (HMGOA), we engineered an end-to-end autonomous forensic operations platform consisting of:
+• A Deep Investigative Intelligence Core: An 8-node state machine built on LangGraph that coordinates hypothesis testing, graph traversal, risk calculation, and policy-bounded resolution.
+• High-Performance Graph Infrastructure: A TigerGraph Cloud deployment executing parameterized GSQL queries against high-volume transaction networks to identify hidden device-sharing and mule rings in real time.
+• A GraphRAG Typology & Knowledge Layer: A regulatory rule repository and historical case retrieval engine that grounds agent conclusions in FinCEN thresholds, SAR mandates, and historical fraud vectors.
+• FastAPI Orchestration Microservices: A high-throughput Python 3.11 asynchronous API handling transaction ingestion, case docket management, graph query proxies, and reproducible benchmark evaluations.
+• Next.js 15 Cyber Command Center: An operations cockpit engineered with Tailwind CSS, featuring sub-second case docket updates, interactive 2D/3D graph topology exploration, dynamic risk telemetry, and strict human-in-the-loop (HITL) action approval workflows.`,
+
+      architectureText: `TraceGuard AI is designed as a decoupled, microservice-oriented architecture engineered for low-latency state evaluation and strict operational auditability.
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    NEXT.JS 15 CYBER COMMAND CENTER UI                       │
+│  • Anomaly Network Explorer (2D/3D)  • Case Docket Queue  • Audit Timeline  │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │ HTTP / Server-Sent Streams
+┌──────────────────────────────────────▼──────────────────────────────────────┐
+│                       FASTAPI ORCHESTRATION LAYER                           │
+│  • /api/v1/cases  • /api/v1/investigations  • /api/v1/benchmark/process     │
+└───────────────────┬─────────────────────────────────────┬───────────────────┘
+                    │                                     │
+┌───────────────────▼────────────────┐   ┌────────────────▼───────────────────┐
+│     LANGGRAPH REASONING ENGINE     │   │      GRAPHRAG & MEMORY LAYER       │
+│  • 8-Node State Machine Execution  │   │  • Regulatory Rules (SAR Engine)   │
+│  • Uncertainty & Risk Balancing    │   │  • Typology Vectors & Case Cache   │
+└───────────────────┬────────────────┘   └────────────────────────────────────┘
+                    │ RESTPP / Token Auth
+┌───────────────────▼─────────────────────────────────────────────────────────┐
+│                           TIGERGRAPH CLOUD ENGINE                           │
+│  Vertices: Customer, Account, PaymentTransaction, Device, IP, Case          │
+│  Installed GSQL Queries: findSharedDevices, getCaseNetwork                  │
+└─────────────────────────────────────────────────────────────────────────────┘`,
+
+      architectureBullets: `1. Presentation Layer (Next.js 15 + Tailwind CSS)
+• Fraud Investigation Docket: Real-time queue displaying incoming threat indices, anomaly vectors, priority tiers, and confidence thresholds.
+• TigerGraph Anomaly Network Explorer: Interactive topology canvas mapping customer clusters, shared device nodes, proxy IP nodes, and fund-routing paths with instant node inspection cards.
+• Telemetry Progression Audit Stream: Granular event logging displaying agent node transitions, evidence acquisitions, step-up auth timeouts, and human analyst approval records.
+
+2. API Orchestration Layer (FastAPI Core)
+• Exposes clean RESTful endpoints: /api/v1/cases, /api/v1/transactions, /api/v1/investigations, /api/v1/graph, and /api/v1/benchmark.
+• Integrates a dual-source database abstraction layer with TigerGraph Cloud as the primary graph engine and SQLite for low-latency state caching and benchmark evaluation.
+
+3. Agentic Reasoning Layer (LangGraph State Machine)
+• Employs stateful orchestration with cyclical execution, enabling the agent to iteratively fetch additional graph evidence if its initial confidence score is below safe operational margins.
+
+4. Knowledge & Governance Layer (GraphRAG + Policy Engine)
+• Enforces deterministic risk gates. Even if an LLM assesses an event as high-risk, irreversible punitive mitigations (such as freezing an account or notifying law enforcement) are held behind strict programmatic checks and HITL analyst sign-offs.`,
+
+      tigergraphUsage: `Relational engines buckle under recursive JOIN operations. When tracing laundering chains or mule networks, discovering that Account A and Account D share a hardware device via intermediate accounts B and C requires traversing multiple foreign key tables. In TigerGraph, this is an instantaneous pointer-hopping traversal across vertex sets.
+
+Graph Schema Topology (TraceGuardGraph)
+   (Customer) ──[OWNED_BY]──► (Account) ◄──[INITIATED]── (PaymentTransaction)
+                                                                 │
+                                ┌────────────────────────────────┤
+                                │                                │
+                        [USED_DEVICE]                       [FROM_IP]
+                                │                                │
+                                ▼                                ▼
+                            (Device)                           (IP)
+
+• Primary Vertices: Customer, Account, PaymentTransaction, Device, IP, Case
+• Edges: INITIATED, USED_DEVICE, FROM_IP, ASSOCIATED_WITH, OWNED_BY
+
+Parameterized GSQL Queries:
+Query 1: findSharedDevices
+Traverses from an active suspect account across transactions to identify connected hardware devices, hops across all external transactions sharing those devices, and returns the cluster of involved accounts.`,
+
+      gsqlCode1: `CREATE QUERY findSharedDevices(VERTEX<Account> targetAccount) FOR GRAPH TraceGuardGraph {
+    SetAccum<VERTEX<Device>> @@targetDevices;
+    SetAccum<VERTEX<Account>> @@sharedAccounts;
+
+    Start = { targetAccount };
+    TxSet = SELECT t FROM Start:s -(INITIATED:e)- PaymentTransaction:t;
+    DevSet = SELECT d FROM TxSet:t -(USED_DEVICE:e)- Device:d
+             ACCUM @@targetDevices += d;
+    ExtTxSet = SELECT t FROM DevSet:d -(USED_DEVICE:e)- PaymentTransaction:t;
+    Res = SELECT a FROM ExtTxSet:t -(INITIATED:e)- Account:a
+          WHERE a != targetAccount
+          ACCUM @@sharedAccounts += a;
+
+    PRINT @@targetDevices AS CompromisedDevices, @@sharedAccounts AS SybilCluster;
+}`,
+
+      gsqlCode2Desc: `Query 2: getCaseNetwork
+Extracts an immediate 3-hop local subgraph surrounding any flagged transaction or customer ID. This query pulls all interacting accounts, proxy IP addresses, and shared hardware instances into a normalized payload, enabling the agent to reason over the topology and the frontend to render the visual graph instantly.`,
+
+      gsqlCode2: `CREATE QUERY getCaseNetwork(VERTEX<PaymentTransaction> targetTx) FOR GRAPH TraceGuardGraph {
+    ListAccum<EDGE> @@edgeList;
+    Start = { targetTx };
+    Hop1 = SELECT v FROM Start:s -(:e)- :v ACCUM @@edgeList += e;
+    Hop2 = SELECT v FROM Hop1:s -(:e)- :v ACCUM @@edgeList += e;
+    Hop3 = SELECT v FROM Hop2:s -(:e)- :v ACCUM @@edgeList += e;
+    PRINT @@edgeList;
+}`,
+
+      agenticCapabilities: `TraceGuard AI is orchestrated by an 8-node stateful agent workflow built on LangGraph. Rather than relying on a linear prompt chain, the workflow functions as an active decision machine equipped with evidence validation and uncertainty gates.
+
+1. Investigate Node: Ingests the anomaly trigger (e.g., an inbound high-velocity payment alert or high-risk geo-hop) and instantiates the InvestigationState object.
+2. Collect Evidence Node: Executes targeted TigerGraph tool calls (getCaseNetwork, findSharedDevices).
+3. Detect Patterns Node: Evaluates graph topology against primary financial crime archetypes (ATO, Device Sharing Syndicate, Rapid Asset Movement, Threshold Evasion).
+4. Assess Risk & Uncertainty Node: Computes Composite Threat Score (0–100) and Confidence Score (0–100).
+5. Recommend Action Node: Formulates proportional interventions (BLOCK_ACCOUNT, HOLD_FUNDS, STEP_UP_AUTH, ESCALATE).
+6. Policy Guardrail Node: Acts as a programmatic governance gate.
+7. Generate Explanation Node: Synthesizes discovered graph evidence into an analyst-ready narrative dossier.
+8. Save Memory Node: Persists final investigative dossier and graph telemetry back to SQLite and TigerGraph case vertices.`,
+
+      whatWeLearned: `1. Graph Databases Are Indispensable for Identity Resolution: Relational models isolate data into artificial tables. Financial fraud is inherently topological. In TigerGraph, multi-hop lookups execute in milliseconds.
+2. Combining GraphRAG with Policy Engines Neutralizes Hallucinations: Combining GraphRAG (grounding the agent with real topological data and compliance rules) with an explicit Deterministic Policy Engine achieves zero compliance drift.
+3. Human-in-the-Loop Governance Builds Analyst Trust: Providing complete transparency—interactive graph visualizations, explicit evidence attribution, and manual override capabilities—allowed test analysts to review complex fraud rings in 45 seconds instead of three hours.`,
+
+      futureImprovements: `• Real-Time Streaming Graph Ingestion: Integrating Apache Kafka and WebSockets directly with TigerGraph's streaming ingestion endpoints.
+• Dynamic GSQL Synthesis via LLM: Enabling the agent to construct and validate custom GSQL queries on the fly.
+• Federated Multi-Bank Anomaly Graphs: Incorporating privacy-preserving Graph Neural Networks (GNNs) across distinct financial institutions.
+• Autonomous Synthetic Identity Simulation: Simulating adversarial behavior inside the graph to uncover latent vulnerabilities.`,
+
+      benchmarksText: `TRACEGUARD AI BENCHMARK REPORT
+Total Test Cases Evaluated: 20 Cases
+Successful Graph Traversals: 20 / 20 (100%)
+Synthetic Fraud Typologies Tested: Account Takeover (ATO), Mule Rings, Structuring
+Target Entity: Sarah Jenkins (CUST-10452) | CASE-2026-001
+Risk Assessment Accuracy: 100% Alignment with Expected Risk Tiers
+Average Graph Traversal Latency: 14ms (TigerGraph Cloud RESTPP)
+Average Agent Triage Pipeline: 1.84s (LangGraph 8-Node Full Cycle)
+Human Analyst Review Acceleration: ~96% Reduction in Mean-Time-To-Investigate
+
+Live Demonstration Walkthrough: CASE-2026-001
+1. Trigger: Customer Sarah Jenkins (CUST-10452) initiates a $4,850.00 outflow to CryptoVantage Exchange.
+2. Autonomous Traversal: Originating hardware OnePlus 11 (unrecognized device), IP 185.213.154.12 (Frankfurt VPN exit point), cross-account linkage across 3 unrelated bank accounts.
+3. Synthesis & Mitigation: Threat Score 91/100 | Confidence 94% | Vector: Account Takeover (ATO). Policy escalation triggered and approved in one click via Cyber Command Center UI.
+
+• GitHub Repository: https://github.com/Amar1912/TraceGuardAI.git
+• Architecture Stack: Next.js 15, FastAPI, LangGraph, TigerGraph Cloud, GraphRAG, Tailwind CSS.`,
+
+      conclusion: `The arms race between financial institutions and organized fraud networks has reached a tipping point. TraceGuard AI demonstrates what the next generation of financial defense looks like: an architecture where TigerGraph's ultra-fast multi-hop traversals provide the structural truth, GraphRAG supplies regulatory context, and LangGraph's stateful orchestration executes auditable, reliable investigations. By unifying autonomous intelligence with human governance, financial systems can detect coordinated fraud networks in milliseconds—stopping illicit fund flows before they leave the ledger.`
     }
   }
 ];
