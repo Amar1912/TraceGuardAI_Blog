@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @bg-white text-[#18181B] font-sans;
+  }
+}
+
+/* Custom scrollbar and smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Code block styling */
+pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
