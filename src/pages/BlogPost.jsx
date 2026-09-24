@@ -169,7 +169,24 @@ export default function BlogPost() {
             {/* How TigerGraph Is Used */}
             <section id="tigergraph">
               <h2 className="text-2xl font-bold text-[#18181B] mb-4 tracking-tight">How TigerGraph Is Used</h2>
-              <p className="text-[#18181B]/90 mb-6">{content.tigergraphUsage}</p>
+              <p className="text-[#18181B]/90 mb-6">{content.tigergraphIntro}</p>
+
+              {/* Graph Schema Topology ASCII Diagram Box */}
+              <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-4 md:p-6 font-mono text-xs overflow-x-auto shadow-sm my-6 border border-[#27272A]">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-[#27272A] text-[#71717A]">
+                  <Terminal className="w-4 h-4 text-[#EC4899]" />
+                  <span>Graph Schema Topology (TraceGuardGraph)</span>
+                </div>
+                <pre className="text-[#38BDF8] leading-relaxed">
+                  {content.schemaAscii}
+                </pre>
+              </div>
+
+              <div className="whitespace-pre-line text-[#18181B]/90 mb-6 bg-[#F4F4F5]/60 p-5 rounded-lg border border-[#E4E4E7] font-mono text-sm">
+                {content.schemaDetails}
+              </div>
+
+              <p className="text-[#18181B]/90 mb-4 whitespace-pre-line">{content.query1Desc}</p>
 
               {/* GSQL Code 1 */}
               <div className="bg-[#18181B] text-[#E4E4E7] rounded-lg p-5 font-mono text-xs md:text-sm overflow-x-auto shadow-sm my-6">

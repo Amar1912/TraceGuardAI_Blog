@@ -97,22 +97,21 @@ TraceGuard AI bridges this gap by decoupling detection from manual human query l
 4. Knowledge & Governance Layer (GraphRAG + Policy Engine)
 • Enforces deterministic risk gates. Even if an LLM assesses an event as high-risk, irreversible punitive mitigations (such as freezing an account or notifying law enforcement) are held behind strict programmatic checks and HITL analyst sign-offs.`,
 
-      tigergraphUsage: `Relational engines buckle under recursive JOIN operations. When tracing laundering chains or mule networks, discovering that Account A and Account D share a hardware device via intermediate accounts B and C requires traversing multiple foreign key tables. In TigerGraph, this is an instantaneous pointer-hopping traversal across vertex sets.
+      tigergraphIntro: `Relational engines buckle under recursive JOIN operations. When tracing laundering chains or mule networks, discovering that Account A and Account D share a hardware device via intermediate accounts B and C requires traversing multiple foreign key tables. In TigerGraph, this is an instantaneous pointer-hopping traversal across vertex sets.`,
 
-Graph Schema Topology (TraceGuardGraph)
-   (Customer) ──[OWNED_BY]──► (Account) ◄──[INITIATED]── (PaymentTransaction)
-                                                                 │
-                                ┌────────────────────────────────┤
-                                │                                │
-                        [USED_DEVICE]                       [FROM_IP]
-                                │                                │
-                                ▼                                ▼
-                            (Device)                           (IP)
+      schemaAscii: `[Customer] ──(OWNED_BY)──► [Account] ◄──(INITIATED)── [PaymentTransaction]
+                                                       │
+                                       ┌───────────────┴───────────────┐
+                                       ▼                               ▼
+                                  [USED_DEVICE]                     [FROM_IP]
+                                       │                               │
+                                       ▼                               ▼
+                                   [Device]                         [IP]`,
 
-• Primary Vertices: Customer, Account, PaymentTransaction, Device, IP, Case
-• Edges: INITIATED, USED_DEVICE, FROM_IP, ASSOCIATED_WITH, OWNED_BY
+      schemaDetails: `• Primary Vertices: Customer, Account, PaymentTransaction, Device, IP, Case
+• Edges: INITIATED, USED_DEVICE, FROM_IP, ASSOCIATED_WITH, OWNED_BY`,
 
-Parameterized GSQL Queries:
+      query1Desc: `Parameterized GSQL Queries:
 Query 1: findSharedDevices
 Traverses from an active suspect account across transactions to identify connected hardware devices, hops across all external transactions sharing those devices, and returns the cluster of involved accounts.`,
 
