@@ -9,7 +9,7 @@ import BlogPost from './pages/BlogPost';
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#FFFFFF] text-[#18181B] flex flex-col font-sans selection:bg-[#FCE7F3] selection:text-[#EC4899]">
+      <div className="min-h-screen bg-white bg-robotic-grid robotic-glow text-[#18181B] flex flex-col font-sans selection:bg-[#FCE7F3] selection:text-[#EC4899]">
         <Header />
         <main className="flex-grow">
           <Routes>
