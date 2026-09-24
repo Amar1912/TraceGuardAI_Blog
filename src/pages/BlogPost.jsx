@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getBlogPostBySlug } from '../data/blogPosts';
 import TableOfContents from '../components/TableOfContents';
-import { ArrowLeft, Clock, Calendar, User, Shield, Terminal } from 'lucide-react';
+import { Clock, Calendar, User, Shield, Terminal } from 'lucide-react';
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const post = getBlogPostBySlug(slug);
+  const currentSlug = slug || "building-traceguard-ai";
+  const post = getBlogPostBySlug(currentSlug);
   const [activeSection, setActiveSection] = useState('introduction');
 
   useEffect(() => {
@@ -61,11 +62,10 @@ export default function BlogPost() {
           The article you are looking for does not exist or has been moved.
         </p>
         <Link
-          to="/blog"
+          to="/"
           className="inline-flex items-center gap-2 font-medium text-white bg-[#18181B] px-6 py-3 rounded-lg hover:bg-[#EC4899] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
+          Back to Article
         </Link>
       </div>
     );
@@ -75,17 +75,6 @@ export default function BlogPost() {
 
   return (
     <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
-      {/* Back button */}
-      <div className="mb-8">
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 text-sm text-[#71717A] hover:text-[#18181B] transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
-        </Link>
-      </div>
-
       <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-16 items-start">
         {/* Main Article Content */}
         <article className="max-w-[760px]">

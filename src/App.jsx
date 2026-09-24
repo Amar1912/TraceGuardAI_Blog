@@ -1,9 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 
 export default function App() {
@@ -13,8 +11,8 @@ export default function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/" element={<BlogPost />} />
+            <Route path="/blog" element={<Navigate to="/" replace />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
         </main>
